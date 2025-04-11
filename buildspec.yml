@@ -12,7 +12,7 @@ phases:
   pre_build:
     commands:
       - echo "Fetching secrets from AWS Secrets Manager"
-      - ENV_SECRET=$(aws secretsmanager get-secret-value --secret-id miniFinanceEnvVars --query SecretString --output text)
+      - ENV_SECRET=$(aws secretsmanager get-secret-value --secret-id miniFinanceEnvVars --query SecretString --output text --region us-east-1)
       - echo "$ENV_SECRET" | jq -r 'to_entries|map("\(.key)=\(.value)")|.[]' > .env
 
   build:
